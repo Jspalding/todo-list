@@ -7,16 +7,17 @@ export class App extends Component {
 
   state = {
     todo: '',
-    todos: [ { text: 'Add your first todo' } ]
-  }
+    todos: [ { text: 'Add your first todo' } ],
+    counter: 1
+  };
 
   componentDidUpdate = (prevProps, prevState) => {
-    const { todos: prevTodos } = prevState;
     const { todos } = this.state;
+    const { todos: prevTodos } = prevState;
     if ( prevTodos.length !== todos.length ) {
-      document.querySelector('#counter').innerText = todos.length;
+      this.setState({ counter: todos.length });
     }
-  }
+  };
 
   handleChange = event => this.setState({ todo: event.target.value });
 
@@ -38,11 +39,11 @@ export class App extends Component {
     this.state.todos.forEach((todo, index) => {
       this.state.todos[index] = { ...todo, id: uniqueId() };
     });
-    const { todo, todos } = this.state;
+    const { todo, todos, counter } = this.state;
     return (
       <div className="todo-list">
         <h1>todos</h1>
-        <p><span id="counter">1</span> remaining</p>
+        <p>{counter} remaining</p>
         <div>
           {
             todos.length

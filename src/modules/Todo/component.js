@@ -13,4 +13,4 @@ export const Component = ({ onClickDelete, text }) => {
 Component.propTypes = {
   onClickDelete: PropTypes.func,
   text: PropTypes.string
-}
+};
