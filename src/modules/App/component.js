@@ -35,21 +35,25 @@ export class App extends Component {
   }
 
   render() {
-    this.state.todos.forEach((todo, index) => {
-      this.state.todos[index] = { ...todo, id: uniqueId() };
-    });
     const { todo, todos, counter } = this.state;
+
+    todos.map((todo, index) => {
+      todos[index] = { ...todo, id: uniqueId() };
+    });
+
+    let todoList = (<div>
+      {todos.map((todo, index) => {
+        return <Todo key={todo.id} 
+        onClickDelete={() => this.handleClickDelete(index)} 
+        text={todo.text} />
+      })}
+    </div>);
+
     return (
       <div className="todo-list">
         <h1>todos</h1>
         <p>{counter} remaining</p>
-        <div>
-          {
-            todos.length
-              ? todos.map((todo, index) => <Todo key={todo.id} onClickDelete={() => this.handleClickDelete(index)} text={todo.text} />)
-              : 'You\'re all done 🌴'
-          }
-        </div>
+        {todoList}
         <div className="todo-input">
           <input onChange={this.handleChange} placeholder="..." type="text" value={todo}/>
           <button onClick={this.handleClickAdd}>Add</button>
@@ -57,5 +61,4 @@ export class App extends Component {
       </div>
     )
   }
-
 }
