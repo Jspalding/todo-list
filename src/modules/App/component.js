@@ -41,13 +41,16 @@ export class App extends Component {
       todos[index] = { ...todo, id: uniqueId() };
     });
 
-    let todoList = (<div>
-      {todos.map((todo, index) => {
-        return <Todo key={todo.id} 
-        onClickDelete={() => this.handleClickDelete(index)} 
-        text={todo.text} />
-      })}
-    </div>);
+    let todoList = (
+      <div>
+        {todos.length
+          ? todos.map((todo, index) => (
+            <Todo key={todo.id}
+            onClickDelete={() => this.handleClickDelete(index)}
+            text={todo.text} />))
+          : "You're all done 🌴"}
+      </div>
+    );
 
     return (
       <div className="todo-list">
