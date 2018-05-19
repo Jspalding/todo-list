@@ -1,1 +1,1 @@
-export { Todo } from './component';
+export { Component as Todo } from './component';
