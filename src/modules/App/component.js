@@ -4,7 +4,6 @@ import { uniqueId } from 'lodash';
 import { Todo } from '../Todo/index';
 
 export class App extends Component {
-
   state = {
     todo: '',
     todos: [ { text: 'Add your first todo' } ],
@@ -23,16 +22,16 @@ export class App extends Component {
 
   handleClickAdd = () => {
     const { todo, todos } = this.state;
-    todo && this.setState({ todos: [ ...todos, { text: todo } ] });
+    this.setState({ todos: [ ...todos, { text: todo } ] });
   };
 
   handleClickDelete = index => {
-    console.log(`Deleting todo number ${index}`);
     const { todos } = this.state;
-    this.setState({ todos: [
-      ...todos.slice(0, index),
-      ...todos.slice(index + 1)
-    ]});
+    const todosCopy = [...todos];
+    todosCopy.splice(index, 1);
+    this.setState({ todos: todosCopy });
+
+    console.log(`Deleting todo number ${index}`);
   }
 
   render() {
